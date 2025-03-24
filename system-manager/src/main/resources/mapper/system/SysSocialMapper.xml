@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.system.mapper.SysSocialMapper">
+
+    <select id="queryByParams" resultType="org.dromara.system.domain.vo.SysSocialVo">
+        SELECT
+        t1.*,
+        tt2.app_type,
+        tt2.`name` AS appName,tt1.nick_name as systemNickName,tt1.user_name as systemUserName
+        FROM
+        `sys_social` t1
+        INNER JOIN sys_user tt1 ON t1.user_id = tt1.user_id
+        INNER JOIN hd_app_info tt2 ON t1.app_id = tt2.id
+        <where>
+            <if test="bo.appType != null and bo.appType != ''">
+                and tt2.app_type=#{bo.appType}
+            </if>
+            <if test="bo.appName != null and bo.appName != ''">
+                <bind name="appNameLikeStr" value="'%' + bo.appName +'%'"/>
+                and tt2.`name` like #{appNameLikeStr}
+            </if>
+            <if test="bo.systemNickName != null and bo.systemNickName != ''">
+                <bind name="systemNickNameLikeStr" value="'%' + bo.systemNickName +'%'"/>
+                and t1.nick_name like #{systemNickNameLikeStr}
+            </if>
+            <if test="bo.systemUserName != null and bo.systemUserName != ''">
+                <bind name="systemUserNameLikeStr" value="'%' + bo.systemUserName +'%'"/>
+                and t1.user_name like #{systemUserNameLikeStr}
+            </if>
+            <if test="bo.openId != null and bo.openId != ''">
+                and t1.open_id=#{bo.openId}
+            </if>
+            <if test="bo.appCode != null and bo.appCode != ''">
+                and tt2.app_code=#{bo.appCode}
+            </if>
+        </where>
+        order by t1.update_time desc
+    </select>
+    <select id="queryByParams1" resultType="org.dromara.system.domain.vo.SysSocialVo">
+        SELECT
+        t1.*,
+        tt2.app_type,
+        tt2.`name` AS appName,tt1.nick_name as systemNickName,tt1.user_name as systemUserName
+        FROM
+        `sys_social` t1
+        INNER JOIN sys_user tt1 ON t1.user_id = tt1.user_id
+        INNER JOIN hd_app_info tt2 ON t1.app_id = tt2.id
+        <where>
+            <if test="bo.appType != null and bo.appType != ''">
+                and tt2.app_type=#{bo.appType}
+            </if>
+            <if test="bo.appName != null and bo.appName != ''">
+                <bind name="appNameLikeStr" value="'%' + bo.appName +'%'"/>
+                and tt2.`name` like #{appNameLikeStr}
+            </if>
+            <if test="bo.systemNickName != null and bo.systemNickName != ''">
+                <bind name="systemNickNameLikeStr" value="'%' + bo.systemNickName +'%'"/>
+                and t1.nick_name like #{systemNickNameLikeStr}
+            </if>
+            <if test="bo.systemUserName != null and bo.systemUserName != ''">
+                <bind name="systemUserNameLikeStr" value="'%' + bo.systemUserName +'%'"/>
+                and t1.user_name like #{systemUserNameLikeStr}
+            </if>
+            <if test="bo.openId != null and bo.openId != ''">
+                and t1.open_id=#{bo.openId}
+            </if>
+            <if test="bo.appCode != null and bo.appCode != ''">
+                and tt2.app_code=#{bo.appCode}
+            </if>
+        </where>
+        order by t1.update_time desc
+    </select>
+</mapper>

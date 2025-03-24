@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdOrderFlwRelationMapper">
+
+    <select id="queryOrderList" resultType="java.util.Map">
+        SELECT
+        hofr.*,
+        aht.NAME_ AS ahtName,
+        ahv.TEXT_,
+        aht.ASSIGNEE_,
+        aht.START_TIME_,
+        aht.DURATION_,
+        aht.END_TIME_,
+        arp.NAME_ AS arpName,
+        hpi.NAME AS projectName,
+        hoi.NAME AS orderName,
+        hoi.progress,
+        su.nick_name
+        FROM
+        hd_order_flw_relation hofr
+        LEFT JOIN hd_project_info hpi ON hpi.id = hofr.project_id
+        LEFT JOIN hd_order_info hoi ON hoi.id = hofr.order_id
+        LEFT JOIN act_hi_taskinst aht ON aht.ID_ = hofr.act_hi_taskinst_id
+        LEFT JOIN act_re_procdef arp ON arp.ID_ = hofr.proc_def_id
+        LEFT JOIN (
+        SELECT *
+        FROM act_hi_varinst
+        WHERE (PROC_INST_ID_, LAST_UPDATED_TIME_) IN (
+        SELECT PROC_INST_ID_, MAX(LAST_UPDATED_TIME_)
+        FROM act_hi_varinst where NAME_ = 'processStatus'
+        GROUP BY PROC_INST_ID_
+        )
+        ) AS ahv ON ahv.PROC_INST_ID_ = hofr.proc_inst_id
+        AND ahv.NAME_ = 'processStatus'
+        LEFT JOIN sys_user su ON su.user_id = aht.ASSIGNEE_
+        WHERE
+        hofr.type = 1
+        <if test="param.projectId != null ">
+            and hofr.project_id = #{param.projectId}
+        </if>
+        <if test="param.orderId != null">
+            and hofr.order_id = #{param.orderId}
+        </if>
+        <if test="param.userName != null and param.userName != ''">
+            and su.nick_name like concat('%', #{param.userName}, '%')
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and ahv.TEXT_ = #{param.status}
+        </if>
+        order by hofr.project_id,
+        aht.START_TIME_
+    </select>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myskybeyond.flowable.mapper.WfCategoryMapper">
+
+    <resultMap type="com.myskybeyond.flowable.domain.WfCategory" id="FlowCategoryResult">
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryPid" column="category_pid"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="code" column="code"/>
+        <result property="sort" column="sort"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+    <select id="totalModalGroupByCategory" resultType="com.myskybeyond.flowable.domain.vo.DataGroupByCategoryVo">
+        SELECT RES.CATEGORY_ as code,count(1) as total FROM `act_re_model` RES WHERE RES.VERSION_ = (select max(VERSION_) from ACT_RE_MODEL where KEY_ = RES.KEY_) GROUP BY RES.CATEGORY_
+    </select>
+    <select id="totalDeploymentGroupByCategory"
+            resultType="com.myskybeyond.flowable.domain.vo.DataGroupByCategoryVo">
+        SELECT  RES.CATEGORY_ as `code`,count(1) as total from ACT_RE_PROCDEF RES WHERE RES.VERSION_ = (select max(VERSION_) from ACT_RE_PROCDEF where KEY_ = RES.KEY_ and ( (TENANT_ID_ IS NOT NULL and TENANT_ID_ = RES.TENANT_ID_) or (TENANT_ID_ IS NULL and RES.TENANT_ID_ IS NULL) ) ) GROUP BY RES.CATEGORY_
+    </select>
+    <select id="totalMyProcessGroupByCategory"
+            resultType="com.myskybeyond.flowable.domain.vo.DataGroupByCategoryVo">
+        SELECT DEF.CATEGORY_ as `code`,count(RES.PROC_DEF_ID_) as total from ACT_HI_PROCINST RES left outer join
+        ACT_RE_PROCDEF DEF on RES.PROC_DEF_ID_ = DEF.ID_
+        <where>
+            <if test="userId != null and userId != ''">
+                and RES.START_USER_ID_ = #{userId}
+            </if>
+        </where>
+        GROUP BY DEF.CATEGORY_
+    </select>
+    <select id="queryConnectByPiror" resultType="com.myskybeyond.flowable.domain.WfCategory">
+        WITH RECURSIVE r_t AS (
+            SELECT category_id as `id`, category_pid as `parent_id`, category_name as `name`,`code`
+            FROM `wf_category`
+            WHERE
+                category_id = #{startId} and
+                del_flag = '0' -- where 1 is the parent_id
+            UNION ALL
+            SELECT `child`.category_id as `id`, `child`.category_pid as `parent_id`, `child`.category_name as `name`,`child`.code
+            FROM `wf_category` `child`
+                     JOIN `r_t` `parent` ON `child`.`category_pid` = `parent`.`id` and `child`.del_flag='0'
+        )
+        SELECT id as category_id,parent_id as category_pid,`name` as category_name,`code` FROM r_t t1
+    </select>
+    <select id="totalToDoTaskGroupByCategory"
+            resultType="com.myskybeyond.flowable.domain.vo.DataGroupByCategoryVo">
+        select t1.CATEGORY_ as `code`,count(RES.ID_) as total from act_ru_task RES left join act_re_procdef t1 on
+        RES.PROC_DEF_ID_=t1.ID_
+        <where>
+            <if test="userId != null and userId != ''">
+                and RES.ASSIGNEE_= #{userId}
+            </if>
+        </where>
+        GROUP BY t1.CATEGORY_
+    </select>
+    <select id="totalExecutor" resultType="com.myskybeyond.flowable.domain.vo.DataGroupByCategoryVo">
+        ${executeSql}
+    </select>
+    <select id="queryIdsByCategory" resultType="java.lang.String">
+        SELECT ID_ FROM ${tableName} where CATEGORY_ in
+        <foreach collection="category" item="item" separator="," close=")" open="(">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

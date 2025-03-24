@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdComponentInfoMapper">
+
+    <select id="queryExportList" resultType="com.hdsolartech.business.domain.vo.HdComponentInfoVo">
+
+        SELECT
+            com.*,
+            ca.name as categoryName,
+            ca.code  as categoryCode,
+            IFNULL(com1.name,"顶级构件") as parentName
+        FROM
+            hd_component_info  com
+                left join hd_category_info ca on com.category_id = ca.id
+                left join hd_component_info  com1 on com.parent_id = com1.id
+
+        WHERE
+             com.del_flag = '0'
+
+            <if test="bo.category!=null and bo.category!=''">
+                AND com.category = #{bo.category}
+            </if>
+            <if test="bo.name!=null and bo.name!=''">
+                <bind name="nameLike" value="'%'+bo.name+'%'"/>
+                AND com.NAME LIKE #{nameLike}
+            </if>
+            <if test="bo.partNo!=null and bo.partNo!=''">
+                <bind name="partNoLike" value="'%'+bo.partNo+'%'"/>
+                AND com.part_no LIKE  #{partNoLike}
+            </if>
+            <if test="bo.drgNo!=null and bo.drgNo!=''">
+                <bind name="drgNoLike" value="'%'+bo.drgNo+'%'"/>
+                AND com.drg_no LIKE #{drgNoLike}
+            </if>
+
+            <if test="bo.material!=null and bo.material!=''">
+                <bind name="materialLike" value="'%'+bo.material+'%'"/>
+                AND com.material LIKE #{materialLike}
+            </if>
+
+            <if test="bo.spec!=null and bo.spec!=''">
+                <bind name="specLike" value="'%'+bo.spec+'%'"/>
+                AND com.spec LIKE #{specLike}
+            </if>
+            <if test="bo.status!=null and bo.status!=''">
+                AND com.STATUS = #{bo.status}
+            </if>
+            <if test="bo.categoryIds!=null  and bo.categoryIds.size()>0">
+                AND  com.category_id in
+                <foreach collection="bo.categoryIds" index="index" item="cateId" open="(" separator="," close=")">
+                    #{cateId}
+                </foreach>
+            </if>
+
+    </select>
+    <select id="getConfigValue" resultType="java.lang.String">
+
+        SELECT
+            config_value
+        FROM
+            sys_config
+        WHERE
+            config_key =  #{key}
+
+    </select>
+</mapper>

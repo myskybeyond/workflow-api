@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdOrderInfoMapper">
+    <select id="countOffer" resultType="java.lang.Integer">
+        SELECT
+        count( t1.ID_ ) AS `total`
+        FROM
+        act_hi_taskinst t1
+        INNER JOIN act_re_procdef t2 ON t1.PROC_DEF_ID_ = t2.ID_
+        LEFT JOIN sys_config sc ON sc.config_value = t2.KEY_
+        WHERE
+        sc.config_key = 'business.flowable.order.relation'
+        <if test="startTime!=null">
+            AND t1.START_TIME_ BETWEEN #{startTime}
+            AND #{endTime}
+        </if>
+        AND t1.ASSIGNEE_ = #{userId}
+        AND t1.STATE_ = 'completed';
+    </select>
+    <select id="countOrder" resultType="java.lang.Integer">
+        SELECT
+        count( t1.ID_ ) AS `total`
+        FROM
+        act_hi_taskinst t1
+        INNER JOIN act_re_procdef t2 ON t1.PROC_DEF_ID_ = t2.ID_
+        LEFT JOIN sys_config sc ON sc.config_value = t2.KEY_
+        WHERE
+        sc.config_key = 'business.flowable.quotation.relation'
+        <if test="startTime!=null">
+            AND t1.START_TIME_ BETWEEN #{startTime}
+            AND #{endTime}
+        </if>
+        AND t1.ASSIGNEE_ = #{userId}
+        AND t1.STATE_ = 'completed';
+    </select>
+</mapper>

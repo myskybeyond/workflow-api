@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdProjectFileVersionInfoMapper">
+
+    <update id="updateSyncStatus">
+
+        UPDATE
+            hd_project_file_version_info
+        SET
+            is_sync = #{sync}
+        WHERE
+            project_file_id = #{projectFileId}
+            and version = #{version}
+    </update>
+</mapper>

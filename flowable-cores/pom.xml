@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.myskybeyond</groupId>
+		<artifactId>flowable701-api</artifactId>
+		<version>${revision}</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>flowable-cores</artifactId>
+	<version>${revision}</version>
+	<name>flowable-cores</name>
+	<description>flowable-cores</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.flowable</groupId>
+			<artifactId>flowable-spring-boot-starter-process</artifactId>
+			<version>${flowable.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.aviator</groupId>
+			<artifactId>aviator</artifactId>
+			<version>5.3.1</version>
+		</dependency>
+<!--		引入第三方框架，比如mybatis springWeb log 权限认证等-->
+
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>ruoyi-common-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>ruoyi-common-satoken</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>ruoyi-common-mybatis</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.myskybeyond</groupId>
+			<artifactId>system-manager</artifactId>
+			<version>${revision}</version>
+		</dependency>
+
+	</dependencies>
+
+
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdProjectProgressExtendInfoMapper">
+
+    <select id="getAllProgressList" resultType="com.hdsolartech.business.domain.vo.HdProjectProgressExtendVo">
+        SELECT
+            ex.*,
+            progress.project_id,
+            progress.order_id,
+            progress.order_date,
+            progress.deliver_end_date,
+            progress.deliver_start_date
+        FROM
+            hd_project_progress_extend_info ex
+                LEFT JOIN hd_project_progress_info progress ON progress.id = ex.project_progress_id;
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: flowable701-api
+  profiles:
+    active: dev
+server:
+  port: 8888
+
+
+# MyBatisPlus配置
+# https://baomidou.com/config/
+mybatis-plus:
+  # 不支持多包, 如有需要可在注解配置 或 提升扫包等级
+  # 例如 com.**.**.mapper
+  mapperPackage: org.dromara.**.mapper, com.myskybeyond.**.mapper
+  # 对应的 XML 文件位置
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: org.dromara.**.domain
+  global-config:
+    dbConfig:
+      # 主键类型
+      # AUTO 自增 NONE 空 INPUT 用户输入 ASSIGN_ID 雪花 ASSIGN_UUID 唯一 UUID
+      # 如需改为自增 需要将数据库表全部设置为自增
+      idType: ASSIGN_ID
+
+--- # Flowable 配置
+flowable:
+  # 关闭定时任务 job
+  async-executor-activate: false
+  # 库与数据库表结构不一致时，会自动将数据库表结构升级至新版本。
+  database-schema-update: true
+  idm:
+    # 关闭idm引擎 数据库不会创建act_id_*表，流程流转不会使用act_id_*相关的表
+    enabled: false
+  # 关闭流程定义文件自动检查
+  check-process-definitions: false
+  # 关闭历史任务定时任务job
+  async-history-executor-activate: false

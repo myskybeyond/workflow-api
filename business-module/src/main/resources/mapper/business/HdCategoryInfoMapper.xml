@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsolartech.business.mapper.HdCategoryInfoMapper">
+
+
+    <select id="queryNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+        SELECT
+            cat.id,
+            cat.category,
+            cat.parent_id,
+            cat.NAME,
+            cat.CODE,
+            cat.sort,
+            cat.remark,
+            cat.del_flag,
+            cat.ancestors,
+            cat.tenant_id,
+            cat.create_by,
+            cat.create_time,
+            cat.update_by,
+            cat.update_time,
+            (
+                SELECT
+                    count(*)
+                FROM
+                    hd_component_info com
+                WHERE
+                        com.category_id IN (
+                        SELECT
+                            cat1.id
+                        FROM
+                            hd_category_info cat1
+                        WHERE
+                            FIND_IN_SET( cat.id, cat1.ancestors ))
+                   OR com.category_id = cat.id
+            ) AS num
+        FROM
+            hd_category_info cat
+        WHERE
+            cat.del_flag = '0'
+        <if test="CateBo.category!=null and CateBo.category!=''">
+            AND ( cat.category = #{CateBo.category})
+        </if>
+        ORDER BY
+            sort ASC,
+            update_time DESC
+
+    </select>
+
+
+    <select id="queryFileNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+        SELECT
+        cat.id,
+        cat.category,
+        cat.parent_id,
+        cat.NAME,
+        cat.CODE,
+        cat.sort,
+        cat.remark,
+        cat.del_flag,
+        cat.ancestors,
+        cat.tenant_id,
+        cat.create_by,
+        cat.create_time,
+        cat.update_by,
+        cat.update_time,
+        (
+        SELECT
+        count(*)
+        FROM
+        hd_project_file_info com
+        WHERE
+        com.category_id IN (
+        SELECT
+        cat1.id
+        FROM
+        hd_category_info cat1
+        WHERE
+        FIND_IN_SET( cat.id, cat1.ancestors ))
+        OR com.category_id = cat.id
+        ) AS num
+        FROM
+        hd_category_info cat
+        WHERE
+        cat.del_flag = '0'
+        <if test="CateBo.category!=null and CateBo.category!=''">
+            AND ( cat.category = #{CateBo.category})
+        </if>
+        ORDER BY
+        sort ASC,
+        update_time DESC
+    </select>
+
+
+    <select id="queryMyFileNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+        SELECT
+        cat.id,
+        cat.category,
+        cat.parent_id,
+        cat.NAME,
+        cat.CODE,
+        cat.sort,
+        cat.remark,
+        cat.del_flag,
+        cat.ancestors,
+        cat.tenant_id,
+        cat.create_by,
+        cat.create_time,
+        cat.update_by,
+        cat.update_time,
+        (
+        SELECT
+        count(*)
+        FROM
+        hd_project_file_info com
+        WHERE
+        1=1
+        and com.update_by = #{CateBo.updateBy}
+        and  (com.category_id IN (
+        SELECT
+        cat1.id
+        FROM
+        hd_category_info cat1
+        WHERE
+        FIND_IN_SET( cat.id, cat1.ancestors ))
+        OR com.category_id = cat.id
+        )
+        ) AS num
+        FROM
+        hd_category_info cat
+        WHERE
+        cat.del_flag = '0'
+        <if test="CateBo.category!=null and CateBo.category!=''">
+            AND ( cat.category = #{CateBo.category})
+        </if>
+        ORDER BY
+        sort ASC,
+        update_time DESC
+    </select>
+</mapper>
