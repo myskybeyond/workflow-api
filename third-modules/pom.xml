@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>com.myskybeyond</groupId>
-		<artifactId>flowable701-api</artifactId>
+		<artifactId>workflow-api</artifactId>
 		<version>${revision}</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -39,6 +39,8 @@
 		<module>ruoyi-common-social</module>
 		<module>ruoyi-common-tenant</module>
 		<module>ruoyi-common-web</module>
+		<module>ruoyi-common-websocket</module>
+		<module>ruoyi-common-translation</module>
 	</modules>
 
 </project>

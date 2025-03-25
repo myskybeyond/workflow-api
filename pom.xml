@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.myskybeyond</groupId>
-    <artifactId>flowable701-api</artifactId>
+    <artifactId>workflow-api</artifactId>
     <version>${revision}</version>
-    <name>flowable701-api</name>
-    <description>flowable701-api</description>
+    <name>workflow-api</name>
+    <description>workflow-api</description>
 
     <developers>
         <developer>
@@ -20,6 +20,7 @@
     <properties>
         <revision>1.0.0</revision>
         <java.version>17</java.version>
+        <ruoyi-vue-plus.revision>5.1.2</ruoyi-vue-plus.revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
         <spring-boot.version>3.1.7</spring-boot.version>
@@ -81,7 +82,7 @@
             <dependency>
                 <groupId>com.myskybeyond</groupId>
                 <artifactId>ruoyi-common-bom</artifactId>
-                <version>${revision}</version>
+                <version>${ruoyi-vue-plus.revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

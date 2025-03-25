@@ -33,3 +33,4 @@ build/
 .vscode/
 /business-module/.flattened-pom.xml
 /third-modules/*/.flattened-pom.xml
+/spy.log

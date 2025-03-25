@@ -8,9 +8,9 @@
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>org.dromara</groupId>
     <artifactId>ruoyi-common-social</artifactId>
-
+    <version>${ruoyi-vue-plus.revision}</version>
     <description>
         ruoyi-common-social 授权认证
     </description>

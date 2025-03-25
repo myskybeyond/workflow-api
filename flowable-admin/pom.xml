@@ -4,7 +4,7 @@
 
 	<parent>
 		<groupId>com.myskybeyond</groupId>
-		<artifactId>flowable701-api</artifactId>
+		<artifactId>workflow-api</artifactId>
 		<version>${revision}</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>

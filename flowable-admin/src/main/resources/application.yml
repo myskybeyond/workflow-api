@@ -1,6 +1,6 @@
 spring:
   application:
-    name: flowable701-api
+    name: workflow-api
   profiles:
     active: dev
 server:
