@@ -79,6 +79,11 @@
 			<version>${revision}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.myskybeyond</groupId>
+			<artifactId>business-module</artifactId>
+		</dependency>
+
 	</dependencies>
 
 

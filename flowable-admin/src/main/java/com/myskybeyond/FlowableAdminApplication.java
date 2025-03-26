@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author mySkyBeyond
  * 启动类
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.dromara", "com.myskybeyond"})
 public class FlowableAdminApplication {
 
 	public static void main(String[] args) {

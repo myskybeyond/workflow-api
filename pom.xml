@@ -54,9 +54,9 @@
 
     <modules>
         <module>flowable-admin</module>
-        <module>flowable-cores</module>
         <module>third-modules</module>
         <module>system-manager</module>
+        <module>flowable-cores</module>
         <module>business-module</module>
     </modules>
     <packaging>pom</packaging>
@@ -211,6 +211,12 @@
                 <groupId>org.dromara.sms4j</groupId>
                 <artifactId>sms4j-spring-boot-starter</artifactId>
                 <version>${sms4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.myskybeyond</groupId>
+                <artifactId>business-module</artifactId>
+                <version>1.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
