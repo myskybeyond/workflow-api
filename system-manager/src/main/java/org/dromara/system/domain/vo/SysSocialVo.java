@@ -160,4 +160,8 @@ public class SysSocialVo implements Serializable {
     private String systemUserName;
 
     private Date updateTime;
+    /**
+     * 企业微信平台userId
+     */
+    private String wxqyUserId;
 }

@@ -5,6 +5,76 @@ spring:
     active: dev
 server:
   port: 8888
+  servlet:
+    # 应用的访问路径
+    context-path: /
+    # undertow 配置
+    undertow:
+      # HTTP post内容的最大大小。当值为-1时，默认值为大小是无限的
+      max-http-post-size: -1
+      # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+      # 每块buffer的空间大小,越小的空间被利用越充分
+      buffer-size: 512
+      # 是否分配的直接内存
+      direct-buffers: true
+      threads:
+        # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+        io: 8
+        # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+        worker: 256
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间（默认10分钟）
+    lockTime: 10
+captcha:
+  enable: false
+  # 页面 <参数设置> 可开启关闭 验证码校验
+  # 验证码类型 math 数组计算 char 字符验证
+  type: MATH
+  # line 线段干扰 circle 圆圈干扰 shear 扭曲干扰
+  category: CIRCLE
+  # 数字验证码位数
+  numberLength: 1
+  # 字符验证码长度
+  charLength: 4
+# 全局线程池相关配置
+thread-pool:
+  # 是否开启线程池
+  enabled: true
+  # 队列最大长度
+  queueCapacity: 128
+  # 线程池维护线程所允许的空闲时间
+  keepAliveSeconds: 300
+--- # 分布式锁 lock4j 全局配置
+lock4j:
+  # 获取分布式锁超时时间，默认为 3000 毫秒
+  acquire-timeout: 3000
+  # 分布式锁的超时时间，默认为 30 秒
+  expire: 30000
+--- # 默认/推荐使用sse推送
+sse:
+  enabled: true
+  path: /resource/sse
+--- # websocket
+websocket:
+  # 如果关闭 需要和前端开关一起关闭
+  enabled: false
+  # 路径
+  path: /resource/websocket
+  # 设置访问源地址
+  allowedOrigins: '*'
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*,/tool/*
 
 # Sa-Token配置
 sa-token:
@@ -50,6 +120,34 @@ security:
     # actuator 监控配置
     - /actuator
     - /actuator/**
+
+# 数据加密
+mybatis-encryptor:
+  # 是否开启加密
+  enable: false
+  # 默认加密算法
+  algorithm: BASE64
+  # 编码方式 BASE64/HEX。默认BASE64
+  encode: BASE64
+  # 安全秘钥 对称算法的秘钥 如：AES，SM4
+  password:
+  # 公私钥 非对称算法的公私钥 如：SM2，RSA
+  publicKey:
+  privateKey:
+
+# api接口加密
+api-decrypt:
+  # 是否开启全局接口加密
+  enabled: true
+  # AES 加密头标识
+  headerFlag: encrypt-key
+  # 响应加密公钥 非对称算法的公私钥 如：SM2，RSA 使用者请自行更换
+  # 对应前端解密私钥 MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAmc3CuPiGL/LcIIm7zryCEIbl1SPzBkr75E2VMtxegyZ1lYRD+7TZGAPkvIsBcaMs6Nsy0L78n2qh+lIZMpLH8wIDAQABAkEAk82Mhz0tlv6IVCyIcw/s3f0E+WLmtPFyR9/WtV3Y5aaejUkU60JpX4m5xNR2VaqOLTZAYjW8Wy0aXr3zYIhhQQIhAMfqR9oFdYw1J9SsNc+CrhugAvKTi0+BF6VoL6psWhvbAiEAxPPNTmrkmrXwdm/pQQu3UOQmc2vCZ5tiKpW10CgJi8kCIFGkL6utxw93Ncj4exE/gPLvKcT+1Emnoox+O9kRXss5AiAMtYLJDaLEzPrAWcZeeSgSIzbL+ecokmFKSDDcRske6QIgSMkHedwND1olF8vlKsJUGK3BcdtM8w4Xq7BpSBwsloE=
+  publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBoPvxpVLx3bZ2hyFeStrw5C+qzQLzV9JNWAofF+RU9dfDoIvA7YzLE/D0JJ+ROI5+yQKo/SB9qUFH5G29q2iaUR3M7x7Q/3pmHSSR0aiduOhaAIrixWDlPxcy1d5hGPZ/W7QDeUEF4kAwsSXaYCq6Qk1n54C42yqWSR60plHbqwIDAQAB
+  # 请求解密私钥 非对称算法的公私钥 如：SM2，RSA 使用者请自行更换
+  # 对应前端加密公钥 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==
+  privateKey: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIZbo2l4WGk41TzjwDD5jgcSkIl4RuT5RaIBRe+GP0vpcuiDC+UI6thlqu3MLlp1fivhq4t4oZMy3Tc9AOgzYzDP1PwPpX6SmHJ53TjZYtKj/kiQb/wWHCXGS7p/9+egkCo578limTflTIF3J6aewAISG12Ki8okJzsLXnoim1FzAgMBAAECgYADA5oP3j/fF51/ZzCP9X+gXJdBFKF3UFKlxr3vfwuuduDTPHvCbWFih2CLqYS+SY9FPSPHCWa+hNAxONbrXpolnS2RiJYD81um+9APlEulYpiwg6SQkbGfo5Yx+SxNBkzgCvAkagC8htKXR9Xwv6/X75jWEWR6vA+qhQLNJo4ZkQJBAKGeFB2nb6vJW/DrThZKDVcG4GUsWHGpqrDH+Wolt+5Qs0D+6rLbtgBBUutnw45Yfbj1P6IXOEvilXCrajyp7nkCQQDU0j3m23P4DAHoOA5uQhgbiVcL+jnDeksX14z1G3V8WyA4dvSIDFQ++gekOl6wUrADENy11CSJ8jgQzjKXeRRLAkBAxpXzaLd2V8c04WqzvkxodAYeJs7wB3u1TQEnTSTSLKAbzdANjcf9hDESzszvUYJaTlmJwtq6d39D4EA9PjKpAkBK7Q3wFfj5LjkJqZqjBM/5+dtUky78/DQt26x7qsQtGOP6HR8wOq76UQqZrhciGqpvGeOqfFq02jsU55N2MqGLAkA+9NRJ0NnByKFk6+2/ls5y+7zJONRTPKYexjJMLUxxB1VZRCt67cyeqEX/qLUbqrV4TbpWjKNKTNyBDMK6+ZN2
+
 springdoc:
   api-docs:
     # 是否开启接口文档

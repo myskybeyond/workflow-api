@@ -42,7 +42,27 @@
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>ruoyi-common-social</artifactId>
+		</dependency>
+		<!--        钉钉消息通知发送-->
+		<dependency>
+			<groupId>com.myskybeyond</groupId>
+			<artifactId>workflow-dingtalk</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.myskybeyond</groupId>
+			<artifactId>workflow-wechat-enterprise</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>ruoyi-common-ratelimiter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.myskybeyond</groupId>
+			<artifactId>business-module</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

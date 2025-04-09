@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hdsolartech.business.mapper.HdProjectAuthorityMapper">
+<mapper namespace="com.myskybeyond.business.mapper.HdProjectAuthorityMapper">
 
-    <resultMap type="com.hdsolartech.business.domain.vo.HdProjectInfoVo" id="ProjectInfo">
+    <resultMap type="com.myskybeyond.business.domain.vo.HdProjectInfoVo" id="ProjectInfo">
     </resultMap>
 
     <select id="queryProjectListByUserId" resultMap="ProjectInfo">

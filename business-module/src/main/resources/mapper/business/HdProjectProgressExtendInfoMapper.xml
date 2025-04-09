@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hdsolartech.business.mapper.HdProjectProgressExtendInfoMapper">
+<mapper namespace="com.myskybeyond.business.mapper.HdProjectProgressExtendInfoMapper">
 
-    <select id="getAllProgressList" resultType="com.hdsolartech.business.domain.vo.HdProjectProgressExtendVo">
+    <select id="getAllProgressList" resultType="com.myskybeyond.business.domain.vo.HdProjectProgressExtendVo">
         SELECT
             ex.*,
             progress.project_id,
