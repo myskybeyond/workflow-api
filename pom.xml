@@ -58,6 +58,8 @@
         <module>system-manager</module>
         <module>flowable-cores</module>
         <module>business-module</module>
+        <module>workflow-dingtalk</module>
+        <module>workflow-wechat-enterprise</module>
     </modules>
     <packaging>pom</packaging>
     <!-- 依赖声明 -->
@@ -216,7 +218,19 @@
             <dependency>
                 <groupId>com.myskybeyond</groupId>
                 <artifactId>business-module</artifactId>
-                <version>1.0.0</version>
+                <version>${revision}</version>
+            </dependency>
+            <!--        钉钉消息通知发送-->
+            <dependency>
+                <groupId>com.myskybeyond</groupId>
+                <artifactId>workflow-dingtalk</artifactId>
+                <version>${revision}</version>
+            </dependency>
+<!--            企业微信消息通知发送-->
+            <dependency>
+                <groupId>com.myskybeyond</groupId>
+                <artifactId>workflow-wechat-enterprise</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

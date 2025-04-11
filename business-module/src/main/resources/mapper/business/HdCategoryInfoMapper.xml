@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hdsolartech.business.mapper.HdCategoryInfoMapper">
+<mapper namespace="com.myskybeyond.business.mapper.HdCategoryInfoMapper">
 
 
-    <select id="queryNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+    <select id="queryNumList" resultType="com.myskybeyond.business.domain.vo.HdCategoryInfoVo">
         SELECT
             cat.id,
             cat.category,
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <select id="queryFileNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+    <select id="queryFileNumList" resultType="com.myskybeyond.business.domain.vo.HdCategoryInfoVo">
         SELECT
         cat.id,
         cat.category,
@@ -94,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <select id="queryMyFileNumList" resultType="com.hdsolartech.business.domain.vo.HdCategoryInfoVo">
+    <select id="queryMyFileNumList" resultType="com.myskybeyond.business.domain.vo.HdCategoryInfoVo">
         SELECT
         cat.id,
         cat.category,

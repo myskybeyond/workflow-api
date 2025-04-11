@@ -29,5 +29,9 @@ public class SocialProperties {
      * 前端外网访问地址
      */
     private String address;
+    /**
+     * 回调域名
+     */
+    private String domain;
 
 }

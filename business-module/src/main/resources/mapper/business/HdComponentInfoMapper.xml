@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hdsolartech.business.mapper.HdComponentInfoMapper">
+<mapper namespace="com.myskybeyond.business.mapper.HdComponentInfoMapper">
 
-    <select id="queryExportList" resultType="com.hdsolartech.business.domain.vo.HdComponentInfoVo">
+    <select id="queryExportList" resultType="com.myskybeyond.business.domain.vo.HdComponentInfoVo">
 
         SELECT
             com.*,

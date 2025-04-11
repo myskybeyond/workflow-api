@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.myskybeyond.business.service.ISmsTemplateVariables;
 import com.myskybeyond.flowable.common.constant.ProcessConstants;
 import com.myskybeyond.flowable.common.constant.TaskConstants;
 import com.myskybeyond.flowable.common.enums.FlowComment;

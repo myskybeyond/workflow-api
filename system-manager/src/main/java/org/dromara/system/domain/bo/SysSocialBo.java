@@ -155,5 +155,9 @@ public class SysSocialBo extends TenantEntity {
     private String systemUserName;
 
     private String appCode;
+    /**
+     * 企业微信平台userId
+     */
+    private String wxqyUserId;
 
 }
