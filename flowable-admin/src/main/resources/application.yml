@@ -1,27 +1,59 @@
 spring:
   application:
     name: workflow-api
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
   profiles:
-    active: dev
+    active: @profiles.active@
+  # 文件上传
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 512MB
+      # 设置总上传的文件大小
+      max-request-size: 512MB
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+  jackson:
+    # 日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      # 格式化输出
+      indent_output: false
+      # 忽略无法转换的对象
+      fail_on_empty_beans: false
+    deserialization:
+      # 允许对象忽略json中不存在的属性
+      fail_on_unknown_properties: false
 server:
   port: 8888
   servlet:
     # 应用的访问路径
     context-path: /
-    # undertow 配置
-    undertow:
-      # HTTP post内容的最大大小。当值为-1时，默认值为大小是无限的
-      max-http-post-size: -1
-      # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
-      # 每块buffer的空间大小,越小的空间被利用越充分
-      buffer-size: 512
-      # 是否分配的直接内存
-      direct-buffers: true
-      threads:
-        # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
-        io: 8
-        # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
-        worker: 256
+  # undertow 配置
+  undertow:
+    # HTTP post内容的最大大小。当值为-1时，默认值为大小是无限的
+    max-http-post-size: -1
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 512
+    # 是否分配的直接内存
+    direct-buffers: true
+    threads:
+      # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+      io: 8
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+      worker: 256
+# 日志配置
+logging:
+  level:
+    org.dromara: info
+    org.springframework: warn
+    com.myskybeyond: info
+  config: classpath:logback.xml
 # 用户配置
 user:
   password:
@@ -120,6 +152,21 @@ security:
     # actuator 监控配置
     - /actuator
     - /actuator/**
+# 多租户配置
+tenant:
+  # 是否开启
+  enable: false
+  # 排除表
+  excludes:
+    - sys_menu
+    - sys_tenant
+    - sys_tenant_package
+    - sys_role_dept
+    - sys_role_menu
+    - sys_user_post
+    - sys_user_role
+    - sys_client
+    - sys_oss_config
 
 # 数据加密
 mybatis-encryptor:
@@ -165,7 +212,7 @@ springdoc:
     # 作者信息
     contact:
       name: MySkyBeyond
-      email: MySkyBeyond@gmail.com
+      email: MySkyBeyond@163.com
       url:
   components:
     # 鉴权方式配置
@@ -197,3 +244,7 @@ flowable:
   check-process-definitions: false
   # 关闭历史任务定时任务job
   async-history-executor-activate: false
+  # 自定义
+  custom:
+  #    流程模型业务校验开关 目前校验规则查看com.myskybeyond.flowable.service.AbstractService.modelCheckOfBusiness()方法
+    model-check-enabled: true
