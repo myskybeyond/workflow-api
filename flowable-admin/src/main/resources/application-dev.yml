@@ -76,7 +76,7 @@ spring.data:
     # 数据库索引
     database: 1
     # 密码(如没有密码请注释掉)
-    #    password: hdsolar
+    #    password:
     # 连接超时时间
     timeout: 10s
     # 是否开启ssl

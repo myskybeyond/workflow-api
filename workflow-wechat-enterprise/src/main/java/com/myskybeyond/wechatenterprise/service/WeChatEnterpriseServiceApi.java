@@ -176,22 +176,22 @@ public class WeChatEnterpriseServiceApi extends AbstractWechatEnterpriseService{
             "        {" +
             "            \"key\":\"待办\"," +
             "            \"data\":\"{todoTotal}\"," +
-            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=http%3A%2F%2Fsales-order.hdsolartech.cn%3A14720%2Fcallback%3Fsource%3DWECHAT_ENTERPRISE-HANGXIN%26jump_url%3Dwork%2Ftodo&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
+            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
             "        }," +
             "        {" +
             "            \"key\":\"我的抄送\"," +
             "            \"data\":\"{copyTotal}\"," +
-            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=http%3A%2F%2Fsales-order.hdsolartech.cn%3A14720%2Fcallback%3Fsource%3DWECHAT_ENTERPRISE-HANGXIN%26jump_url%3Dwork%2Fcopy&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
+            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
             "        }," +
             "        {" +
             "            \"key\":\"我的申请\"," +
             "            \"data\":\"{ownTotal}\"," +
-            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=http%3A%2F%2Fsales-order.hdsolartech.cn%3A14720%2Fcallback%3Fsource%3DWECHAT_ENTERPRISE-HANGXIN%26jump_url%3Dwork%2Fown&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
+            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
             "        }," +
             "        {" +
             "            \"key\":\"我的办理\"," +
             "            \"data\":\"{finishedTotal}\"," +
-            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=http%3A%2F%2Fsales-order.hdsolartech.cn%3A14720%2Fcallback%3Fsource%3DWECHAT_ENTERPRISE-HANGXIN%26jump_url%3Dwork%2Ffinished&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
+            "            \"jump_url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww927b6a6dadb1457f&redirect_uri=&response_type=code&scope=snsapi_base&state=STATE&agentid=1000004#wechat_redirect\"" +
             "        }" +
             "    ]" +
             "    }," +
